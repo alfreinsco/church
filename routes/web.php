@@ -7,6 +7,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\MinistryController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FinanceController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
@@ -51,4 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::get('finances/expenses/{id}/edit', [FinanceController::class, 'editExpense'])->name('finances.edit-expense');
     Route::put('finances/expenses/{id}', [FinanceController::class, 'updateExpense'])->name('finances.update-expense');
     Route::delete('finances/expenses/{id}', [FinanceController::class, 'destroyExpense'])->name('finances.destroy-expense');
+
+    // Users routes
+    Route::resource('users', UserController::class);
 });
