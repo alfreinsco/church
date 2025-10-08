@@ -12,19 +12,18 @@ class Event extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
+        'name',
         'description',
-        'type', // ibadah, kegiatan, retret, kkr, dll
+        'type',
         'start_date',
         'end_date',
         'start_time',
         'end_time',
         'location',
-        'capacity',
-        'registration_required',
-        'registration_deadline',
-        'status', // draft, published, cancelled, completed
+        'max_participants',
+        'status',
         'organizer_id',
+        'notes',
         'created_by',
         'updated_by'
     ];
@@ -32,8 +31,6 @@ class Event extends Model
     protected $casts = [
         'start_date' => 'date',
         'end_date' => 'date',
-        'registration_deadline' => 'date',
-        'registration_required' => 'boolean',
     ];
 
     // Relationships
@@ -49,7 +46,7 @@ class Event extends Model
 
     public function attendances(): HasMany
     {
-        return $this->hasMany(EventAttendance::class);
+        return $this->hasMany(Attendance::class);
     }
 
     public function documents(): HasMany
@@ -71,7 +68,7 @@ class Event extends Model
     public function scopeUpcoming($query)
     {
         return $query->where('start_date', '>=', now()->toDateString())
-                    ->where('status', 'published');
+                    ->where('status', 'akan datang');
     }
 
     public function scopeByType($query, $type)
@@ -79,9 +76,9 @@ class Event extends Model
         return $query->where('type', $type);
     }
 
-    public function scopePublished($query)
+    public function scopeActive($query)
     {
-        return $query->where('status', 'published');
+        return $query->whereIn('status', ['akan datang', 'sedang berlangsung']);
     }
 
     // Accessors
@@ -97,6 +94,6 @@ class Event extends Model
 
     public function getIsFullAttribute()
     {
-        return $this->capacity && $this->total_registrations >= $this->capacity;
+        return $this->max_participants && $this->total_registrations >= $this->max_participants;
     }
 }

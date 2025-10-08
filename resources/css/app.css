@@ -14,3 +14,155 @@
 
 @source 'sweetalert2.min.css';
 @source 'sweetalert2.min.js';
+
+/* Custom Church Management System Styles */
+:root {
+    --primary: #0891b2;
+    --primary-content: #ffffff;
+    --secondary: #0e7490;
+    --secondary-content: #ffffff;
+    --accent: #155e75;
+    --accent-content: #ffffff;
+    --neutral: #1f2937;
+    --neutral-content: #ffffff;
+    --base-100: #ffffff;
+    --base-200: #f0f9ff;
+    --base-300: #e0f2fe;
+    --base-content: #1e293b;
+    --info: #0891b2;
+    --info-content: #ffffff;
+    --success: #10b981;
+    --success-content: #ffffff;
+    --warning: #f59e0b;
+    --warning-content: #ffffff;
+    --error: #ef4444;
+    --error-content: #ffffff;
+}
+
+/* Gradient backgrounds */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
+}
+
+.bg-gradient-secondary {
+    background: linear-gradient(135deg, #0e7490 0%, #155e75 100%);
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Card hover effects */
+.card-hover {
+    transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(8, 145, 178, 0.15);
+}
+
+/* Button gradients */
+.btn-primary {
+    background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #0e7490 0%, #155e75 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(8, 145, 178, 0.3);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border: none;
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    border: none;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    border: none;
+}
+
+.btn-error {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    border: none;
+}
+
+/* Stat cards */
+.stat-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(8, 145, 178, 0.1);
+    border-color: #0891b2;
+}
+
+/* Table hover effects */
+.table-hover tbody tr:hover {
+    background-color: #f0f9ff;
+}
+
+/* Badge gradients */
+.badge-primary {
+    background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
+    color: white;
+}
+
+.badge-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+}
+
+.badge-info {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    color: white;
+}
+
+.badge-warning {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+}
+
+.badge-error {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+}
+
+/* Form focus states */
+.input:focus, .select:focus, .textarea:focus {
+    border-color: #0891b2;
+    box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.1);
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.loading {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
