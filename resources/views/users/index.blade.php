@@ -134,6 +134,12 @@
                                                 </svg>
                                             </a>
                                         @endcan
+                                        {{-- @can('assign roles') --}}
+                                        <a href="{{ route('users.assign-roles', $user->id) }}"
+                                            class="text-sky-600 hover:text-sky-900 transition-colors duration-200">
+                                            <i class="fa-solid fa-link"></i>
+                                        </a>
+                                        {{-- @endcan --}}
                                         @can('edit users')
                                             <a href="{{ route('users.edit', $user->id) }}"
                                                 class="text-indigo-600 hover:text-indigo-900 transition-colors duration-200">

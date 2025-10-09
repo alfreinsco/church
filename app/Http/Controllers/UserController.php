@@ -266,4 +266,62 @@ class UserController extends Controller implements HasMiddleware
             ]);
         }
     }
+
+    /**
+     * Show the form for assigning roles to a user.
+     */
+    public function assignRoles(string $id)
+    {
+        try {
+            $user = User::with('roles')->findOrFail($id);
+            $roles = Role::all();
+
+            return view('users.assign-roles', compact('user', 'roles'));
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('swal', [
+                'title' => 'Error',
+                'text' => 'Terjadi kesalahan saat memuat form: '.$e->getMessage(),
+                'icon' => 'error',
+            ]);
+        }
+    }
+
+    /**
+     * Update role assignments for a user.
+     */
+    public function updateAssignRoles(Request $request, string $id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $request->validate([
+                'roles' => 'required|array|min:1',
+                'roles.*' => 'exists:roles,id',
+            ]);
+
+            $user = User::findOrFail($id);
+            $roleIds = $request->roles;
+            $roles = Role::whereIn('id', $roleIds)->pluck('name')->toArray();
+
+            $user->syncRoles($roles);
+
+            DB::commit();
+
+            return redirect()->route('users.assign-roles', $id)->with('swal', [
+                'title' => 'Berhasil',
+                'text' => 'Role pengguna berhasil ditugaskan',
+                'icon' => 'success',
+            ]);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return redirect()->back()->with('swal', [
+                'title' => 'Error',
+                'text' => 'Terjadi kesalahan saat memperbarui role: '.$e->getMessage(),
+                'icon' => 'error',
+            ])->withInput();
+        }
+    }
 }

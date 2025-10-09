@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\MemberController;
-use App\Http\Controllers\MinistryController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FinanceController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\MinistryController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -54,5 +56,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('finances/expenses/{id}', [FinanceController::class, 'destroyExpense'])->name('finances.destroy-expense');
 
     // Users routes
+    Route::get('users/{id}/assign-roles', [UserController::class, 'assignRoles'])->name('users.assign-roles');
+    Route::put('users/{id}/assign-roles', [UserController::class, 'updateAssignRoles']);
     Route::resource('users', UserController::class);
+
+    // Roles routes
+    Route::get('roles/{id}/assign-permissions', [RoleController::class, 'assignPermissions'])->name('roles.assign-permissions');
+    Route::put('roles/{id}/assign-permissions', [RoleController::class, 'updateAssignPermissions']);
+    Route::resource('roles', RoleController::class);
+
+    // Permissions routes
+    Route::resource('permissions', PermissionController::class);
 });
