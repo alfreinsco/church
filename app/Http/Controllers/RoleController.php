@@ -284,7 +284,7 @@ class RoleController extends Controller implements HasMiddleware
 
             DB::commit();
 
-            return redirect()->route('roles.assign-permissions', $id)->with('swal', [
+            return redirect()->route('roles.show', $id)->with('swal', [
                 'title' => 'Berhasil',
                 'text' => 'Permission role berhasil ditugaskan',
                 'icon' => 'success',

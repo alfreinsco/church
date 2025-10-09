@@ -19,6 +19,13 @@
                         Edit Role
                     </a>
                     {{-- @endcan --}}
+                    {{-- @can('assign permissions') --}}
+                    <a href="{{ route('roles.assign-permissions', $role->id) }}"
+                        class="inline-flex items-center px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white font-medium rounded-lg transition-colors duration-200">
+                        <i class="fa-solid fa-link mr-2"></i>
+                        Tugas Permission
+                    </a>
+                    {{-- @endcan --}}
                     <a href="{{ route('roles.index') }}"
                         class="inline-flex items-center px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white font-medium rounded-lg transition-colors duration-200">
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
