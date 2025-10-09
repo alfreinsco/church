@@ -86,26 +86,6 @@
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
                             placeholder="Konfirmasi password" required>
                     </div>
-
-                    <!-- Roles -->
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                            Role <span class="text-red-500">*</span>
-                        </label>
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                            @foreach ($roles as $role)
-                                <label class="flex items-center">
-                                    <input type="checkbox" name="roles[]" value="{{ $role->id }}"
-                                        {{ in_array($role->id, old('roles', [])) ? 'checked' : '' }}
-                                        class="h-4 w-4 text-cyan-600 focus:ring-cyan-500 border-gray-300 rounded">
-                                    <span class="ml-2 text-sm text-gray-700">{{ $role->name }}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                        @error('roles')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
                 </div>
 
                 <!-- Submit Button -->

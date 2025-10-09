@@ -17,6 +17,13 @@
                         </svg>
                         Kembali
                     </a>
+                    {{-- @can('assign roles') --}}
+                    <a href="{{ route('users.assign-roles', $user->id) }}"
+                        class="inline-flex items-center px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white font-medium rounded-lg transition-colors duration-200">
+                        <i class="fa-solid fa-link mr-2"></i>
+                        Tugas Role
+                    </a>
+                    {{-- @endcan --}}
                     @can('edit users')
                         <a href="{{ route('users.edit', $user->id) }}"
                             class="inline-flex items-center px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white font-medium rounded-lg transition-colors duration-200">

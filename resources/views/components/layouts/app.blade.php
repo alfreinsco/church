@@ -157,6 +157,11 @@
                             </a>
                         </li>
 
+                        <!-- Divider -->
+                        <li class="pt-4">
+                            <div class="border-t border-cyan-500"></div>
+                        </li>
+
                         <!-- Pengguna -->
                         <li>
                             <a href="{{ route('users.index') }}"

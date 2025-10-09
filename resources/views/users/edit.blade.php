@@ -7,7 +7,7 @@
                     <h1 class="text-3xl font-bold text-gray-900">Edit Pengguna</h1>
                     <p class="text-gray-600 mt-1">Ubah data pengguna: {{ $user->name }}</p>
                 </div>
-                <a href="{{ route('users.index') }}"
+                <a href="{{ route('users.show', $user->id) }}"
                     class="inline-flex items-center px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white font-medium rounded-lg transition-colors duration-200">
                     <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd"
@@ -88,31 +88,11 @@
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
                             placeholder="Konfirmasi password baru">
                     </div>
-
-                    <!-- Roles -->
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                            Role <span class="text-red-500">*</span>
-                        </label>
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                            @foreach ($roles as $role)
-                                <label class="flex items-center">
-                                    <input type="checkbox" name="roles[]" value="{{ $role->id }}"
-                                        {{ in_array($role->id, old('roles', $user->roles->pluck('id')->toArray())) ? 'checked' : '' }}
-                                        class="h-4 w-4 text-cyan-600 focus:ring-cyan-500 border-gray-300 rounded">
-                                    <span class="ml-2 text-sm text-gray-700">{{ $role->name }}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                        @error('roles')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
                 </div>
 
                 <!-- Submit Button -->
                 <div class="flex justify-end space-x-3 pt-6 border-t border-gray-200">
-                    <a href="{{ route('users.index') }}"
+                    <a href="{{ route('users.show', $user->id) }}"
                         class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors duration-200">
                         Batal
                     </a>

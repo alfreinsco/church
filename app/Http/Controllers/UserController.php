@@ -97,8 +97,6 @@ class UserController extends Controller implements HasMiddleware
                 'email' => 'required|email|unique:users,email',
                 'phone' => 'nullable|string|max:20',
                 'password' => 'required|string|min:8|confirmed',
-                'roles' => 'required|array|min:1',
-                'roles.*' => 'exists:roles,id',
             ]);
 
             $data = $request->all();
@@ -106,14 +104,9 @@ class UserController extends Controller implements HasMiddleware
 
             $user = User::create($data);
 
-            // Assign roles
-            $roleIds = $request->roles;
-            $roles = Role::whereIn('id', $roleIds)->pluck('name')->toArray();
-            $user->assignRole($roles);
-
             DB::commit();
 
-            return redirect()->route('users.index')->with('swal', [
+            return redirect()->route('users.show', $user->id)->with('swal', [
                 'title' => 'Berhasil',
                 'text' => 'Data pengguna berhasil ditambahkan',
                 'icon' => 'success',
@@ -136,7 +129,7 @@ class UserController extends Controller implements HasMiddleware
     public function show(string $id)
     {
         try {
-            $user = User::with('roles')->findOrFail($id);
+            $user = User::findOrFail($id);
 
             return view('users.show', compact('user'));
 
@@ -155,10 +148,9 @@ class UserController extends Controller implements HasMiddleware
     public function edit(string $id)
     {
         try {
-            $user = User::with('roles')->findOrFail($id);
-            $roles = Role::all();
+            $user = User::findOrFail($id);
 
-            return view('users.edit', compact('user', 'roles'));
+            return view('users.edit', compact('user'));
 
         } catch (\Exception $e) {
             return redirect()->back()->with('swal', [
@@ -183,8 +175,6 @@ class UserController extends Controller implements HasMiddleware
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|unique:users,email,'.$id,
                 'phone' => 'nullable|string|max:20',
-                'roles' => 'required|array|min:1',
-                'roles.*' => 'exists:roles,id',
             ];
 
             // Only validate password if provided
@@ -203,14 +193,9 @@ class UserController extends Controller implements HasMiddleware
 
             $user->update($data);
 
-            // Update roles
-            $roleIds = $request->roles;
-            $roles = Role::whereIn('id', $roleIds)->pluck('name')->toArray();
-            $user->syncRoles($roles);
-
             DB::commit();
 
-            return redirect()->route('users.index')->with('swal', [
+            return redirect()->route('users.show', $id)->with('swal', [
                 'title' => 'Berhasil',
                 'text' => 'Data pengguna berhasil diperbarui',
                 'icon' => 'success',
@@ -308,7 +293,7 @@ class UserController extends Controller implements HasMiddleware
 
             DB::commit();
 
-            return redirect()->route('users.assign-roles', $id)->with('swal', [
+            return redirect()->route('users.show', $id)->with('swal', [
                 'title' => 'Berhasil',
                 'text' => 'Role pengguna berhasil ditugaskan',
                 'icon' => 'success',
